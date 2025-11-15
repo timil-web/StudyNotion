@@ -82,7 +82,7 @@ exports.updateSection = async (req, res) => {
 exports.deleteSection = async (req, res) => {
   try {
     const { sectionId, courseId } = req.body; // or req.params if using URL params
-
+	
     // check section exists
     const section = await Section.findById(sectionId);
     if (!section) {
