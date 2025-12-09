@@ -34,7 +34,7 @@ export default function UpdatePassword() {
         <div className='my-5 rounded-md border border-richblack-700 bg-richblack-800 p-8 px-12'>
           <h1 className='text-lg mb-6 font-semibold text-richblack-5 uppercase tracking-wider' >Password</h1>
 
-          <div className='flex flex-col lg:flex-row gap-5' >
+          <div className='flex flex-col gap-5' >
             <div className='relative flex flex-col gap-x-2 w-full' >
               <label htmlFor="oldPassword" className='label-style uppercase tracking-wider mb-1' >Your Password <span className='text-pink-100'>*</span></label>
               <input
@@ -49,7 +49,7 @@ export default function UpdatePassword() {
                     message: 'Please enter your New Password'
                   },
                   minLength: {
-                    value: 6,
+                    value: 4,
                     message: 'Invalid password'
                   }
                 })}
@@ -68,40 +68,77 @@ export default function UpdatePassword() {
                 errors.oldPassword && <p className='input-error-style' >{errors.oldPassword?.message}</p>
               }
             </div>
+            
+            <div className='flex flex-col lg:flex-row gap-5'>
+              <div className='relative flex flex-col gap-x-2 w-full' >
+                <label htmlFor="newPassword" className='label-style uppercase tracking-wider mb-1' >New Password <span className='text-pink-100'>*</span></label>
+                <input
+                  name='newPassword'
+                  id='newPassword'
+                  placeholder='Enter New Password Password'
+                  type={showNewPassword ? 'text' : 'password'}
+                  className='form-style !pr-12 placeholder:uppercase placeholder:text-sm placeholder:tracking-wider'
+                  {...register('newPassword', {
+                    required: {
+                      value: true,
+                      message: 'Please enter your New Password'
+                    },
+                    minLength: {
+                      value: 4,
+                      message: 'Password length must be atleast 4'
+                    }
+                  })}
+                />
 
-            <div className='relative flex flex-col gap-x-2 w-full' >
-              <label htmlFor="newPassword" className='label-style uppercase tracking-wider mb-1' >New Password <span className='text-pink-100'>*</span></label>
-              <input
-                name='newPassword'
-                id='newPassword'
-                placeholder='Enter Current Password'
-                type={showNewPassword ? 'text' : 'password'}
-                className='form-style !pr-12 placeholder:uppercase placeholder:text-sm placeholder:tracking-wider'
-                {...register('newPassword', {
-                  required: {
-                    value: true,
-                    message: 'Please enter your New Password'
-                  },
-                  minLength: {
-                    value: 6,
-                    message: 'Password length must be atleast 6'
+                <span onClick={() => setShowNewPassword(prev => !prev)} className='absolute right-3 top-[38px] cursor-pointer' >
+                  {
+                    showNewPassword ?
+                      <AiOutlineEyeInvisible fontSize={24} fill='#AFB2BF' />
+                      :
+                      <AiOutlineEye fontSize={24} fill='#AFB2BF' />
                   }
-                })}
-              />
+                </span>
 
-              <span onClick={() => setShowNewPassword(prev => !prev)} className='absolute right-3 top-[38px] cursor-pointer' >
                 {
-                  showNewPassword ?
-                    <AiOutlineEyeInvisible fontSize={24} fill='#AFB2BF' />
-                    :
-                    <AiOutlineEye fontSize={24} fill='#AFB2BF' />
+                  errors.newPassword && <p className='input-error-style' >{errors.newPassword?.message}</p>
                 }
-              </span>
+              </div>
 
-              {
-                errors.newPassword && <p className='input-error-style' >{errors.newPassword?.message}</p>
-              }
+              <div className='relative flex flex-col gap-x-2 w-full' >
+                <label htmlFor="confirmNewPassword" className='label-style uppercase tracking-wider mb-1' >Confirm New Password <span className='text-pink-100'>*</span></label>
+                <input
+                  name='confirmNewPassword'
+                  id='confirmNewPassword'
+                  placeholder='Enter confirm New Password Password'
+                  type={showNewPassword ? 'text' : 'password'}
+                  className='form-style !pr-12 placeholder:uppercase placeholder:text-sm placeholder:tracking-wider'
+                  {...register('confirmNewPassword', {
+                    required: {
+                      value: true,
+                      message: 'Please enter your New Password'
+                    },
+                    minLength: {
+                      value: 4,
+                      message: 'Password length must be atleast 4'
+                    }
+                  })}
+                />
+
+                <span onClick={() => setShowNewPassword(prev => !prev)} className='absolute right-3 top-[38px] cursor-pointer' >
+                  {
+                    showNewPassword ?
+                      <AiOutlineEyeInvisible fontSize={24} fill='#AFB2BF' />
+                      :
+                      <AiOutlineEye fontSize={24} fill='#AFB2BF' />
+                  }
+                </span>
+
+                {
+                  errors.newPassword && <p className='input-error-style' >{errors.newPassword?.message}</p>
+                }
+              </div>
             </div>
+            
           </div>
         </div>
 

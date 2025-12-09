@@ -265,7 +265,9 @@ exports.changePassword = async (req, res) => {
             { password: encryptedPassword },
             { new: true }
         );
-
+        
+        console.log(updatedUserDetails.email);
+        
         // Send notification email
         try {
             const emailResponse = await mailSender(
