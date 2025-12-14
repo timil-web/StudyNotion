@@ -36,10 +36,19 @@ const VideoDetails = () => {
         const filteredData = courseSectionData.filter(
           (course) => course._id === sectionId
         )
+        console.log("Looking for sectionId:", sectionId,filteredData)
+        if (!filteredData || filteredData.length === 0) {
+          console.error("Section not found")
+          return
+        }
         // console.log("filteredData", filteredData)
         const filteredVideoData = filteredData?.[0]?.subSection.filter(
           (data) => data._id === subSectionId
         )
+        if (!filteredVideoData || filteredVideoData.length === 0) {
+          console.error("Video not found")
+          return
+        }
         // console.log("filteredVideoData", filteredVideoData)
         setVideoData(filteredVideoData[0])
         setPreviewSource(courseEntireData.thumbnail)
@@ -54,9 +63,17 @@ const VideoDetails = () => {
       (data) => data._id === sectionId
     )
 
+    if (currentSectionIndx === -1) {
+      return false
+    }
+
     const currentSubSectionIndx = courseSectionData[
       currentSectionIndx
     ].subSection.findIndex((data) => data._id === subSectionId)
+
+    if (currentSubSectionIndx === -1) {
+      return false
+    }
 
     if (currentSectionIndx === 0 && currentSubSectionIndx === 0) {
       return true
