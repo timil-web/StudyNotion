@@ -117,7 +117,7 @@ exports.signUp = async(req,res) =>{
     //find most recent otp stored for the user 
     const recentOtp = await OTP.find({email}).sort({createdAt:-1}).limit(1);
     // validate otp 
-    if(recentOtp.length == 0){
+    if(recentOtp.length === 0){
         //otp not found
         return res.status(400).json({
             success:false,
@@ -155,7 +155,6 @@ exports.signUp = async(req,res) =>{
         success:true,
         message:'User registered successfully',
         user,
-
     })
     } catch (error) {
         console.log("SignUp error",error);
@@ -180,7 +179,7 @@ exports.login = async(req,res) =>{
         })
     }
     //user exist or not
-    const user = await User.findOne({email});
+    const user = await User.findOne({email}).populate("additionalDetails");
     if(!user){
         return res.status(401).json({
             success:false,
@@ -196,7 +195,7 @@ exports.login = async(req,res) =>{
         }
         
         const token = jwt.sign(payload,process.env.JWT_SECRET,{
-            expiresIn:'2h'
+            expiresIn:'24h'
         });
         user.token = token;
         user.password = undefined;
@@ -204,8 +203,6 @@ exports.login = async(req,res) =>{
         const options = {
             expires: new Date(Date.now() + 3 * 24 * 60 * 60 * 1000),
             httpOnly: true,
-            secure: true,
-            sameSite: 'none'
         }
         res.cookie("token",token,options).status(200).json({
             success:true,

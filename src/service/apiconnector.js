@@ -1,20 +1,18 @@
 import axios from "axios";
 
-export const axiosInstance = axios.create({});
+export const axiosInstance = axios.create({
+  withCredentials: true,
+});
 
 axiosInstance.interceptors.request.use(
-    (config) => {
-        const token = localStorage.getItem('token');
-        if (token) {
-            // Remove quotes if token was stored with JSON.stringify
-            const cleanToken = token.replace(/^"|"$/g, '');
-            config.headers.Authorization = `Bearer ${cleanToken}`;
-        }
-        return config;
-    },
-    (error) => {
-        return Promise.reject(error);
+  (config) => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
     }
+    return config;
+  },
+  (error) => Promise.reject(error)
 );
 
 export const apiconnector = (method,url,bodyData,headers,params) => {
@@ -27,3 +25,12 @@ export const apiconnector = (method,url,bodyData,headers,params) => {
 		withCredentials: true,
 	})
 }
+// export const apiconnector = (method, url, bodyData, headers, params) => {
+//   return axiosInstance({
+//     method,
+//     url,
+//     data: bodyData || null,
+//     headers: headers || null,
+//     params: params || null,
+//   });
+// };
