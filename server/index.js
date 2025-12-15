@@ -22,16 +22,12 @@ const PORT = process.env.PORT || 4000;
 database.connect();
 // MIDDLEWARE
 app.use(
-	cors({
-		origin: process.env.FRONTEND_URL,
-		credentials: true,
-		methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
-        allowedHeaders: ['Content-Type', 'Authorization'],
-        exposedHeaders: ['Set-Cookie'],
-		preflightContinue: false,
-		optionsSuccessStatus: 204
-	})
+  cors({
+    origin: process.env.FRONTEND_URL?.replace(/\/$/, ""),
+    credentials: true,
+  })
 );
+
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
