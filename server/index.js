@@ -21,17 +21,16 @@ const PORT = process.env.PORT || 4000;
 // database connection
 database.connect();
 // MIDDLEWARE
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser());
+
 app.use(
   cors({
     origin: process.env.FRONTEND_URL?.replace(/\/$/, ""),
     credentials: true,
   })
 );
-
-
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-app.use(cookieParser());
 
 app.use(
 	fileUpload({

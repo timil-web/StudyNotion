@@ -23,13 +23,13 @@ const auth = async (req, res, next) => {
         try {
             const decoded = jwt.verify(token, "timil");
             req.user = decoded;
+            next();
         } catch (err) {
             return res.status(401).json({
                 success: false,
                 message: "Token is invalid",
             });
         }
-        next();
     } catch (error) {
         return res.status(500).json({
             success: false,

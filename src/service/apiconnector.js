@@ -1,19 +1,6 @@
 import axios from "axios";
 
-export const axiosInstance = axios.create({
-  withCredentials: true,
-});
-
-axiosInstance.interceptors.request.use(
-  (config) => {
-    const token = localStorage.getItem("token");
-    if (token) {
-      config.headers.Authorization = `Bearer ${token}`;
-    }
-    return config;
-  },
-  (error) => Promise.reject(error)
-);
+export const axiosInstance = axios.create({});
 
 export const apiconnector = (method,url,bodyData,headers,params) => {
 	return axiosInstance({
@@ -25,12 +12,3 @@ export const apiconnector = (method,url,bodyData,headers,params) => {
 		withCredentials: true,
 	})
 }
-// export const apiconnector = (method, url, bodyData, headers, params) => {
-//   return axiosInstance({
-//     method,
-//     url,
-//     data: bodyData || null,
-//     headers: headers || null,
-//     params: params || null,
-//   });
-// };
