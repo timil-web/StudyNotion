@@ -36,6 +36,29 @@ export default function CoursesTable({ courses, setCourses }) {
     setConfirmationModal(null)
     setLoading(false)
   }
+  const getTotalDuration = (courseContent) => {
+    if (!courseContent || courseContent.length === 0) return "0m";
+
+    let totalMinutes = 0;
+    courseContent.forEach((section) => {
+      section?.subSection?.forEach((subSec) => {
+        // Parse duration like "19:30" or just minutes
+        const duration = subSec?.timeDuration || "0";
+        if (duration.includes(":")) {
+          const [mins, secs] = duration.split(":");
+          totalMinutes += parseInt(mins) + parseInt(secs) / 60;
+        } else {
+          totalMinutes += parseInt(duration);
+        }
+      });
+    });
+
+    const hours = Math.floor(totalMinutes / 60);
+    const minutes = Math.round(totalMinutes % 60);
+
+    if (hours === 0) return `${minutes}m`;
+    return `${hours}h ${minutes}m`;
+  };
 
   // console.log("All Course ", courses)
 
@@ -110,7 +133,7 @@ export default function CoursesTable({ courses, setCourses }) {
                   </div>
                 </Td>
                 <Td className="max-sm:text-[10px] sm:text-xs md:text-sm lg:text-base font-medium text-richblack-100">
-                  2hr 30min
+                  {getTotalDuration(course.courseContent)}
                 </Td>
                 <Td className="max-sm:text-[10px] sm:text-xs md:text-sm lg:text-base font-medium text-richblack-100">
                   ₹{course.price}

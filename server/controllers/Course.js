@@ -432,7 +432,13 @@ exports.getInstructorCourses = async (req, res) => {
     // Find all courses belonging to the instructor
     const instructorCourses = await Course.find({
       instructor: instructorId,
-    }).sort({ createdAt: -1 })
+    }).populate({
+      path: "courseContent",
+      populate: {
+        path: "subSection",
+      },
+    })
+    .sort({ createdAt: -1 })
 
     // Return the instructor's courses
     res.status(200).json({
