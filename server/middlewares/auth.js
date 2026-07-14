@@ -6,10 +6,15 @@ const User = require("../models/User");
 const auth = async (req, res, next) => {
     try {
         // Extract token
+        // console.log("Authorization:", req.headers.authorization);
+        // console.log("Cookies:", req.cookies);
+        // console.log("Body:", req.body);
         const token =
             req.header("Authorization")?.replace("Bearer ", "") ||
             req.body?.token ||
             req.cookies?.token;
+
+        // console.log("TOKEN =", token);
 
         // If token is missing
         if (!token) {
@@ -25,6 +30,12 @@ const auth = async (req, res, next) => {
             req.user = decoded;
             next();
         } catch (err) {
+            if(err.name ==="TokenExpiredError") {
+                return res.status(401).json({
+                    success: false,
+                    message: "Token has expired",
+                });
+            }
             return res.status(401).json({
                 success: false,
                 message: "Token is invalid",

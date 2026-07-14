@@ -12,6 +12,7 @@ const {
   LOGIN_API,
   RESETPASSTOKEN_API,
   RESETPASSWORD_API,
+  LOGOUT_API,
 } = endpoints
 
 export function sendOtp(email, navigate) {
@@ -175,7 +176,13 @@ export function resetPassword(password, confirmPassword, token, navigate) {
 }
 
 export function logout(navigate) {
-  return (dispatch) => {
+  return async (dispatch) => {
+    try {
+      await apiconnector("POST", LOGOUT_API);
+    } 
+    catch (error) {
+      console.log("Logout API Error:", error);
+    }
     dispatch(setToken(null))
     dispatch(setUser(null))
     dispatch(resetCart())

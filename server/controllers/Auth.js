@@ -55,7 +55,11 @@ exports.sendotp = async (req, res) => {
         "OTP Verification",
         otpTemplate(otp)
       );
-      console.log("Mail response:", mailResponse);
+      if (mailResponse) {
+        console.log(mailResponse.response);
+      } else {
+        console.log("Mail sending failed.");
+      }
     } catch (mailError) {
       console.error("Error sending email:", mailError.message);
       return res.status(500).json({
@@ -299,6 +303,26 @@ exports.changePassword = async (req, res) => {
             success: false,
             message: "Error occurred while updating password",
             error: error.message,
+        });
+    }
+};
+
+exports.logout = async (req, res) => {
+    try {
+        res.clearCookie("token", {
+            httpOnly: true,
+            secure: true,
+            sameSite: "None",
+        });
+
+        return res.status(200).json({
+            success: true,
+            message: "Logged out successfully",
+        });
+    } catch (error) {
+        return res.status(500).json({
+            success: false,
+            message: "Logout failed",
         });
     }
 };
