@@ -11,7 +11,7 @@ import 'swiper/css/navigation';
 import { Pagination, Navigation, HashNavigation } from 'swiper/modules';
 
 
-import Course_Card from './Course_Card'  // Updated component name
+import CourseCatelogCard from './CourseCatelogCard'  // Updated component name
 
 const CourseSlider = ({ Courses }) => {
   return (
@@ -48,7 +48,7 @@ const CourseSlider = ({ Courses }) => {
           {
 		    Courses?.map((course, i) => (
               <SwiperSlide key={i}>
-                <Course_Card course={course} Height={"200"} />
+                <CourseCatelogCard course={course} Height={"200"} />
               </SwiperSlide>
             ))
 		  }

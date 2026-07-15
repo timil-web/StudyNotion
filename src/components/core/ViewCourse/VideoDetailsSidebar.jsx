@@ -40,7 +40,7 @@ export default function VideoDetailsSidebar({ setReviewModal }) {
 
     setActiveStatus(courseSectionData?.[currentSectionIndx]?._id);
     setVideoBarActive(activeSubSectionId);
-  }, [courseSectionData, courseEntireData]);
+  }, [courseSectionData, courseEntireData, sectionId, subSectionId]);
 
   return (
     <div

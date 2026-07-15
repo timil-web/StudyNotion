@@ -40,7 +40,6 @@ function ReviewSlider() {
       if (data?.success) {
         setReviews(data?.data)
       }
-	  console.log(reviews)
     })()
   }, [])
 

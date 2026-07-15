@@ -26,7 +26,7 @@ const MyProfile = () => {
     } else {
       console.log("User object is currently null or undefined.");
     }
-  }, []);
+  }, [user]);
   return (
     <div className='bg-richblack-900 text-white mx-0 md:mx-5' >
       <h1 className='font-medium text-richblack-5 text-3xl mb-7 md:mb-14' >My Profile</h1>

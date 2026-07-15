@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { useNavigate, useParams } from "react-router-dom"
 
 import "video-react/dist/video-react.css"
-import { useLocation } from "react-router-dom"
+// import { useLocation } from "react-router-dom"
 import { BigPlayButton, Player } from "video-react"
 
 import { markLectureAsComplete } from "../../../service/operation/courseDetailsAPI"
@@ -13,7 +13,7 @@ import IconBtn from "../../common/IconBtn"
 const VideoDetails = () => {
   const { courseId, sectionId, subSectionId } = useParams()
   const navigate = useNavigate()
-  const location = useLocation()
+  // const location = useLocation()
   const playerRef = useRef(null)
   const dispatch = useDispatch()
   const { token } = useSelector((state) => state.auth)
@@ -55,7 +55,14 @@ const VideoDetails = () => {
         setVideoEnded(false)
       }
     })()
-  }, [courseSectionData, courseEntireData, location.pathname])
+  }, [
+    courseSectionData,
+    courseEntireData,
+    courseId,
+    sectionId,
+    subSectionId,
+    navigate,
+  ]);
 
   // check if the lecture is the first video of the course
   const isFirstVideo = () => {

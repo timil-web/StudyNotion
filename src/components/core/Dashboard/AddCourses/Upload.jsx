@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { useSelector } from "react-redux";
+// import { useSelector } from "react-redux";
 import "video-react/dist/video-react.css";
 import { Player } from "video-react";
 import { FiUploadCloud } from "react-icons/fi";
@@ -14,7 +14,7 @@ export default function Upload({
   viewData = null,
   editData = null,
 }) {
-  const { course } = useSelector((state) => state.course);
+  // const { course } = useSelector((state) => state.course);
   const [selectedFile, setSelectedFile] = useState(null);
   const [previewSource, setPreviewSource] = useState(
     viewData ? viewData : editData ? editData : ""
@@ -45,11 +45,11 @@ export default function Upload({
 
   useEffect(() => {
     register(name, { required: true });
-  }, [register]);
+  }, [register, name]);
 
   useEffect(() => {
     setValue(name, selectedFile);
-  }, [selectedFile, setValue]);
+  }, [selectedFile, setValue, name]);
 
   return (
     <div className="flex flex-col space-y-2">
