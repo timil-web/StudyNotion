@@ -10,9 +10,9 @@ const auth = async (req, res, next) => {
         // console.log("Cookies:", req.cookies);
         // console.log("Body:", req.body);
         const token =
+            req.cookies?.token ||
             req.header("Authorization")?.replace("Bearer ", "") ||
-            req.body?.token ||
-            req.cookies?.token;
+            req.body?.token;
 
         // console.log("TOKEN =", token);
 
